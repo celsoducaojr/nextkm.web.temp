@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NextKM — Find it. Do it. Own your next KM.</title>
+
+    <style>
+      /* ── Reset & base ─────────────────────────────────────────────────── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      html { height: 100%; }
+
+      body {
+        height: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        background-color: #f9fafb;
+        color: #111827;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* ── Animations ───────────────────────────────────────────────────── */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(22px); }
+        to   { opacity: 1; transform: translateY(0);    }
+      }
+
+      @keyframes ping {
+        75%, 100% { transform: scale(2); opacity: 0; }
+      }
+
+      .anim-1 { animation: fadeInUp 0.7s ease-out 0.05s both; }
+      .anim-2 { animation: fadeInUp 0.7s ease-out 0.25s both; }
+      .anim-3 { animation: fadeInUp 0.7s ease-out 0.50s both; }
+      .anim-4 { animation: fadeInUp 0.7s ease-out 0.75s both; }
+
+      /* ── Gradient helpers ─────────────────────────────────────────────── */
+      .gradient-text {
+        background: linear-gradient(135deg, #DE146C 0%, #8B5CF6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .gradient-bar {
+        display: block;
+        height: 4px;
+        width: 64px;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, #DE146C, #8B5CF6);
+      }
+
+      /* ── Header ───────────────────────────────────────────────────────── */
+      header {
+        width: 100%;
+        background: #ffffff;
+        border-bottom: 1px solid #f3f4f6;
+        box-shadow: 0 1px 3px rgba(0,0,0,.06);
+        padding: 14px 24px;
+      }
+
+      .header-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        user-select: none;
+      }
+
+      .logo-wordmark {
+        font-size: 1.25rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        color: #1f2937;
+      }
+
+      /* ── Main ─────────────────────────────────────────────────────────── */
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 64px 24px;
+      }
+
+      .hero {
+        max-width: 640px;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+      }
+
+      /* "Warming up..." pill */
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 16px;
+        border-radius: 9999px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 1px 4px rgba(0,0,0,.07);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: #6b7280;
+        width: fit-content;
+      }
+
+      /* Pulsing dot */
+      .dot-wrap {
+        position: relative;
+        display: flex;
+        width: 10px;
+        height: 10px;
+        flex-shrink: 0;
+      }
+
+      .dot-ping {
+        position: absolute;
+        inset: 0;
+        border-radius: 9999px;
+        background: #DE146C;
+        opacity: 0.5;
+        animation: ping 1.6s cubic-bezier(0,0,.2,1) infinite;
+      }
+
+      .dot-core {
+        position: relative;
+        width: 10px;
+        height: 10px;
+        border-radius: 9999px;
+        background: #DE146C;
+      }
+
+      /* Headline */
+      h1 {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        color: #111827;
+      }
+
+      /* Tagline */
+      .tagline {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        font-weight: 300;
+        color: #9ca3af;
+        line-height: 1.6;
+        max-width: 420px;
+      }
+
+      /* ── Footer ───────────────────────────────────────────────────────── */
+      footer {
+        width: 100%;
+        padding: 14px 24px;
+        text-align: center;
+        font-size: 0.75rem;
+        color: #9ca3af;
+        border-top: 1px solid #f3f4f6;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- ── Header ─────────────────────────────────────────────────────── -->
+    <header>
+      <div class="header-inner">
+        <a href="/" class="logo-link" aria-label="NextKM home">
+
+          <!-- Icon mark -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 40 40"
+            width="36"
+            height="36"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#DE146C" />
+                <stop offset="100%" stop-color="#8B5CF6" />
+              </linearGradient>
+            </defs>
+            <rect width="40" height="40" rx="10" fill="url(#lg)" />
+            <!-- Stylised "N" letterform -->
+            <polyline
+              points="10,30 10,10 22,28 22,10"
+              fill="none"
+              stroke="white"
+              stroke-width="3.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <!-- KM accent dot -->
+            <circle cx="30" cy="20" r="3" fill="white" opacity="0.9" />
+          </svg>
+
+          <!-- Wordmark -->
+          <span class="logo-wordmark">
+            <span class="gradient-text">Next</span>KM
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ── Main ───────────────────────────────────────────────────────── -->
+    <main>
+      <div class="hero">
+
+        <!-- "Warming up..." pill -->
+        <div class="pill anim-1">
+          <span class="dot-wrap">
+            <span class="dot-ping"></span>
+            <span class="dot-core"></span>
+          </span>
+          Warming up...
+        </div>
+
+        <!-- Headline -->
+        <h1 class="anim-2">
+          Find&nbsp;it. Do&nbsp;it.<br />
+          <span class="gradient-text">Own your next KM.</span>
+        </h1>
+
+        <!-- Tagline -->
+        <p class="tagline anim-3">
+          Discover races. Register fast. Show up ready.
+        </p>
+
+        <!-- Accent bar -->
+        <div class="anim-4">
+          <span class="gradient-bar"></span>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ── Footer ─────────────────────────────────────────────────────── -->
+    <footer>
+      &copy; <span id="year"></span> NextKM. All rights reserved.
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+  </body>
+</html>
