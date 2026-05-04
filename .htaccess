@@ -1,4 +1,0 @@
-# Redirect non-www to www
-RewriteEngine On
-RewriteCond %{HTTP_HOST} ^nextkm\.ph$ [NC]
-RewriteRule ^(.*)$ https://www.nextkm.ph/$1 [R=301,L]
